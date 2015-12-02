@@ -28,6 +28,8 @@ void loop(){
 
   if (trigger() == true){
     solenoid();
+  }else{
+    resetSolenoid();
   }
 
 }
@@ -50,7 +52,7 @@ void solenoid(){
   // timer setup for hit 
   // using delay() will not grant us multitasking 
   if (currentTime - previousHitTime < hitInterval && hitting == true){
-    digitalWrite(soloPin, HIGH);
+   digitalWrite(soloPin, HIGH);
 //    Serial.println("hit");
 //    Serial.println(currentTime - previousHitTime);
   }else{
@@ -60,13 +62,17 @@ void solenoid(){
   
   // timer setup for wait
   if (currentTime - previousWaitTime < waitInterval && hitting == false){
-    digitalWrite(soloPin, LOW);
+   digitalWrite(soloPin, LOW);
 //    Serial.println("wait");
 //    Serial.println(currentTime - previousWaitTime);
   }else{
     hitting = true;
     previousWaitTime = currentTime;
   }
+}
+
+void resetSolenoid(){
+  digitalWrite(soloPin, LOW);
 }
 
 
