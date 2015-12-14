@@ -14,6 +14,7 @@ This nested structure questions the true connection between spaces, are we reall
 * 8 x MOSFET or Transistor
 * 8 x Tuning Fork
 * 8 x Diode
+* 8 x 12V Power Supply
 * Several Woods for Laser Cutting
 
 ## Schematics

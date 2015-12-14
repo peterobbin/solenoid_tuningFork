@@ -1,21 +1,29 @@
-#define soloPin 3
+#define pinC 0
+#define pinD 1
+#define pinE 2
+#define pinF 3
+#define pinG 4
+#define pinA 5
+#define pinB 6
+#define pinCplus 7
+
 #define micPin 0
 
 
 long previousHitTime = 0;
 long previousWaitTime = 0;
-long hitInterval = 90;
-long waitInterval = 1000;
+long hitInterval = 100;
+long waitInterval = 700;
 unsigned long currentTime = 0;
 boolean hitting = false;
 
-float volumeHighLimit = 390;
+float volumeHighLimit = 400;
 float volumeLowLimit = 250;
 
 
 
 void setup(){
-  pinMode(soloPin, OUTPUT);
+  pinMode(pinF, OUTPUT);
   pinMode(micPin, INPUT);
   Serial.begin(9600);
 
@@ -27,9 +35,9 @@ void loop(){
   currentTime = millis();
 
   if (trigger() == true){
-    solenoid();
+    solenoidF();
   }else{
-    resetSolenoid();
+    resetSolenoidF();
   }
 
 }
@@ -48,11 +56,11 @@ boolean trigger(){
 }
 
 
-void solenoid(){
+void solenoidF(){
   // timer setup for hit 
   // using delay() will not grant us multitasking 
   if (currentTime - previousHitTime < hitInterval && hitting == true){
-   digitalWrite(soloPin, HIGH);
+   digitalWrite(pinF, HIGH);
 //    Serial.println("hit");
 //    Serial.println(currentTime - previousHitTime);
   }else{
@@ -62,7 +70,7 @@ void solenoid(){
   
   // timer setup for wait
   if (currentTime - previousWaitTime < waitInterval && hitting == false){
-   digitalWrite(soloPin, LOW);
+   digitalWrite(pinF, LOW);
 //    Serial.println("wait");
 //    Serial.println(currentTime - previousWaitTime);
   }else{
@@ -71,8 +79,8 @@ void solenoid(){
   }
 }
 
-void resetSolenoid(){
-  digitalWrite(soloPin, LOW);
+void resetSolenoidF(){
+  digitalWrite(pinF, LOW);
 }
 
 
