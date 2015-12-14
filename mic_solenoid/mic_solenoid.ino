@@ -8,6 +8,11 @@
 #define pinCplus 9
 
 #define micPinF 0
+#define micPinB 1
+#define micPinL 2
+#define micPinR 3
+#define micPinU 4
+#define micPinD 5
 
 long previousHitTimeC = 0;
 long previousWaitTimeC = 0;
@@ -72,8 +77,8 @@ long waitIntervalCplus = 4096 - hitIntervalCplus;
 unsigned long currentTime = 0;
 
 
-float volumeHighLimit = 430;
-float volumeLowLimit = 220;
+float volumeHighLimit = 540;
+float volumeLowLimit = 100;
 
 
 
@@ -86,7 +91,7 @@ void setup(){
   pinMode(pinA, OUTPUT);
   pinMode(pinB, OUTPUT);
   pinMode(pinCplus, OUTPUT);
-  pinMode(micPinF, INPUT);
+
   Serial.begin(9600);
 
 }
@@ -94,38 +99,191 @@ void setup(){
 
 void loop(){
 
-
   currentTime = millis();
 
-  if (trigger() == true){
+  if (triggerC() == true){
     solenoidC();
-    solenoidD();
-    solenoidE();
-    solenoidF();
-    solenoidG();
-    solenoidA();
-    solenoidB();
-    solenoidCplus();
   }else{
     resetSolenoidC();
+  }
+  
+  if (triggerD() == true){
+    solenoidD();
+  }else{
     resetSolenoidD();
+  }
+
+
+  if (triggerE() == true){
+    solenoidE();
+  }else{
     resetSolenoidE();
+  }
+
+  if (triggerF() == true){
+    solenoidF();
+  }else{
     resetSolenoidF();
+  }
+
+  if (triggerG() == true){
+    solenoidG();
+  }else{
     resetSolenoidG();
+  }
+  
+  if (triggerA() == true){
+    solenoidA();
+  }else{
     resetSolenoidA();
+  }
+
+  if (triggerB() == true){
+    solenoidB();
+  }else{
     resetSolenoidB();
+  }
+
+  if (triggerCplus() == true){
+    solenoidCplus();
+  }else{
     resetSolenoidCplus();
   }
+
+
 
 
 }
 
 
-boolean trigger(){
+boolean triggerC(){
   // getting volume
   // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
-  float volume = analogRead(micPinF);
-  Serial.println(volume);
+  float volume1 = analogRead(micPinF);
+  float volume2 = analogRead(micPinD);
+  float volume3 = analogRead(micPinL);
+  float volume = (volume1 + volume2 + volume3) / 3;
+
+  if (volume < volumeLowLimit || volume > volumeHighLimit){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+boolean triggerD(){
+  // getting volume
+  // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
+  float volume1 = analogRead(micPinF);
+  float volume2 = analogRead(micPinD);
+  float volume3 = analogRead(micPinR);
+  float volume = (volume1 + volume2 + volume3) / 3;
+  //Serial.println(volume);
+  if (volume < volumeLowLimit || volume > volumeHighLimit){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+boolean triggerE(){
+  // getting volume
+  // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
+  float volume1 = analogRead(micPinB);
+  float volume2 = analogRead(micPinR);
+  float volume3 = analogRead(micPinD);
+  float volume = (volume1 + volume2 + volume3) / 3;
+ // Serial.println(volume);
+  if (volume < volumeLowLimit || volume > volumeHighLimit){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+boolean triggerF(){
+  // getting volume
+  // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
+  float volume1 = analogRead(micPinL);
+  float volume2 = analogRead(micPinB);
+  float volume3 = analogRead(micPinD);
+  float volume = (volume1 + volume2 + volume3) / 3;
+ // Serial.println(volume);
+  if (volume < volumeLowLimit || volume > volumeHighLimit){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+boolean triggerG(){
+  // getting volume
+  // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
+  float volume1 = analogRead(micPinU);
+  float volume2 = analogRead(micPinL);
+  float volume3 = analogRead(micPinF);
+//  float volume4 = analogRead(micPinB);
+//  float volume5 = analogRead(micPinR);
+//  float volume6 = analogRead(micPinD);
+  
+  float volume = (volume1 + volume2 + volume3) / 3;
+//  Serial.print("up  ");
+//  Serial.print(volume1);
+//  Serial.print("Left  ");
+//  Serial.print(volume2);
+//  Serial.print("front  ");
+//  Serial.print(volume3);
+//  Serial.print("back  ");
+//  Serial.print(volume4);
+//  Serial.print("right  ");
+//  Serial.print(volume5);
+//  Serial.print("down  ");
+//  Serial.println(volume6);
+  if (volume < volumeLowLimit || volume > volumeHighLimit){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+boolean triggerA(){
+  // getting volume
+  // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
+  float volume1 = analogRead(micPinU);
+  float volume2 = analogRead(micPinF);
+  float volume3 = analogRead(micPinR);
+  float volume = (volume1 + volume2 + volume3) / 3;
+  //Serial.println(volume);
+  if (volume < volumeLowLimit || volume > volumeHighLimit){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+boolean triggerB(){
+  // getting volume
+  // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
+  float volume1 = analogRead(micPinU);
+  float volume2 = analogRead(micPinR);
+  float volume3 = analogRead(micPinB);
+  float volume = (volume1 + volume2 + volume3) / 3;
+  //Serial.println(volume);
+  if (volume < volumeLowLimit || volume > volumeHighLimit){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+boolean triggerCplus(){
+  // getting volume
+  // volume is normally 300ish, when touched it will go higher than 350 or lower than 300
+  float volume1 = analogRead(micPinU);
+  float volume2 = analogRead(micPinL);
+  float volume3 = analogRead(micPinB);
+  float volume = (volume1 + volume2 + volume3) / 3;
+  //Serial.println(volume);
   if (volume < volumeLowLimit || volume > volumeHighLimit){
     return true;
   }else{
