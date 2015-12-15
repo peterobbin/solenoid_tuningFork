@@ -77,8 +77,8 @@ long waitIntervalCplus = 4096 - hitIntervalCplus;
 unsigned long currentTime = 0;
 
 
-float volumeHighLimit = 540;
-float volumeLowLimit = 100;
+float volumeHighLimit = 400;
+float volumeLowLimit = 150;
 
 
 
@@ -103,6 +103,14 @@ void loop(){
 
   if (triggerC() == true){
     solenoidC();
+//    solenoidD();
+//    solenoidE();
+//    solenoidF();
+//    solenoidG();
+//    solenoidA();
+//    solenoidB();
+//    solenoidCplus();
+    
   }else{
     resetSolenoidC();
   }
@@ -227,12 +235,12 @@ boolean triggerG(){
 //  float volume6 = analogRead(micPinD);
   
   float volume = (volume1 + volume2 + volume3) / 3;
-//  Serial.print("up  ");
-//  Serial.print(volume1);
-//  Serial.print("Left  ");
-//  Serial.print(volume2);
-//  Serial.print("front  ");
-//  Serial.print(volume3);
+  Serial.print("up  ");
+  Serial.print(volume1);
+  Serial.print("Left  ");
+  Serial.print(volume2);
+  Serial.print("front  ");
+  Serial.print(volume3);
 //  Serial.print("back  ");
 //  Serial.print(volume4);
 //  Serial.print("right  ");
